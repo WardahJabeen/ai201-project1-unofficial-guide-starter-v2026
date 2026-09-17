@@ -282,9 +282,28 @@ Rules:
 - Be brief. Two or three sentences is usually enough."""
 
 
+GROUNDING_RULE = """Answer using only the information in the documents above.
+If they don't cover the question, say you don't have enough information rather
+than filling the gap from what you already know. Name the file you used."""
+
+
 def build_prompt(question: str, results) -> str:
     """
     Assemble the grounded prompt out of retrieved chunks.
+
+    The grounding rule is repeated here, in the prompt itself, and not only in
+    `GROUNDING_INSTRUCTION` at the system level. That repetition is the point:
+    it is the second layer, and it catches a different failure from the first.
+
+    The relevance gate stops questions that are plainly not in the corpus — it
+    compares one number against a threshold, so it only ever catches the clear
+    misses. The near ones get through it. A question about seafood in
+    Brightwater retrieves Brightwater's "Eat and drink" section at a distance
+    the gate is happy with, because the chunk really is about eating in
+    Brightwater; it just says nothing about seafood, which is Halden Bay's.
+    Chunks close enough to pass the gate but not close enough to answer are
+    exactly the case where a model invents something plausible, and the only
+    place left to catch it is the instruction sitting next to the question.
 
     Split out from `answer_from_chunks` so the prompt can be looked at without
     being sent — `python app.py ask "..." --show-prompt` prints exactly what
@@ -297,7 +316,7 @@ def build_prompt(question: str, results) -> str:
     return (
         f"Documents:\n\n{context}\n\n"
         f"---\n\nQuestion: {question}\n\n"
-        f"Answer using only the documents above, and name the file you used."
+        f"{GROUNDING_RULE}"
     )
 
 
