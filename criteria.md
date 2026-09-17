@@ -19,10 +19,11 @@ pipeline earns credit; *"80% seemed reasonable"* does not.
 
 ## 1. Retrieved chunks contain the answer
 
-For at least 4 of my 5 test questions, the retrieved chunks include one that
+For at least 5 of my 5 test questions, the retrieved chunks include one that
 contains the answer.
 
 **Why this target:**
+All of my questions have a straightforward answer
 <!-- e.g. "One of my questions is about a topic only two documents mention, so
      I expect that one to be hard." -->
 
@@ -33,8 +34,12 @@ contains the answer.
 Every answer the system produces names at least one source document.
 
 **Why this target:**
+Every answer should name a source so I can see where the information came from.
+
 <!-- Why all five and not four? What about your setup makes that achievable —
-     or what would have to go wrong for it not to be? -->
+     or what would have to go wrong for it not to be? 
+     
+     -->
 
 ---
 
@@ -50,12 +55,14 @@ in at least 4 of 5 tries.
      just keep five of them, or the "4 of 5" above has nothing to be 4 of. -->
 
 **Why this target:**
+I chose 4 out of 5 because the gate should stop most questions that are outside the documents, while allowing for one possible mistake.
 <!-- What did your distances look like when you set the cutoff in Milestone 4?
      Was there a clean gap, or did the two groups overlap? -->
 
 ---
 
-## 4. Something about your chunks
+## 4. Retrieved chunks are within range
+For at least 4 of 5 test questions, all retrieved chunks must contain between 200 and 400 tokens, inclusive.
 
 <!-- YOU WRITE THIS ONE.
 
@@ -72,12 +79,13 @@ in at least 4 of 5 tries.
 
 
 **Why this target:**
-
+I chose 200–400 tokens because chunks with fewer than 200 tokens may not provide enough context, while chunks over 400 tokens may contain too much information to give one straightforward answer.
 
 
 ---
 
-## 5. Your choice
+## 5. Top-ranked retrieved answer has at least one fact
+For at least 4 of 5 test questions, the top-ranked retrieved chunk contains at least one factual statement that directly answers the question.
 
 <!-- YOU WRITE THIS ONE TOO.
 
@@ -90,8 +98,7 @@ in at least 4 of 5 tries.
 
 
 **Why this target:**
-
-
+I want the top-ranked chunk to contain at least one useful fact so I can quickly skim it and find relevant information.
 
 ---
 
