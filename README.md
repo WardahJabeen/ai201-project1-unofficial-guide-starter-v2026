@@ -26,6 +26,7 @@
      this repo.
 
      Milestone 5. -->
+I picked the city_guide corpus. I asked questions about where to find cheap food, transportation times, busy seasons, and market days. I used several locations and focused on questions that tourists would commonly ask when visiting the region.
 
 ## Chunking Strategy
 
@@ -175,8 +176,12 @@ The in-scope questions ranged from 0.288 to 0.468, while the out-of-scope questi
      Milestone 5. -->
 
 **1.**
+I used Claude to write the chunking function and told it to split based on headings. It initially used a chunk_size of 1000, so I asked why and told it to change it to 800 along with some other fixes. The code started getting more complicated than I wanted, so I reverted the changes and gave it one clear instruction with specific rules.
+
+I then noticed that some of the chunks did not make sense. I asked Claude to go through the documents and come up with a plan without modifying the code further. After reviewing the plan, I realized that a chunk_size of 1000 actually worked better for my corpus, so I changed it back.
 
 **2.**
+I asked ChatGPT for help explaining the “why this target” section for my chunk-range acceptance criterion. It initially focused on the “4 out of 5 questions” part instead of explaining why I chose the chunk-size range, and the explanation was too vague. I adjusted it to include the actual range numbers and explain why that range made sense for my corpus.
 
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never
