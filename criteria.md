@@ -61,7 +61,7 @@ I chose 4 out of 5 because the gate should stop most questions that are outside 
 ---
 
 ## 4. Retrieved chunks are within range
-For at least 4 of 5 test questions, all retrieved chunks contain between 100-800 characters.
+For at least 4 of 5 test questions, all retrieved chunks contain between 100-1000 characters.
 
 <!-- YOU WRITE THIS ONE.
 
@@ -78,7 +78,7 @@ For at least 4 of 5 test questions, all retrieved chunks contain between 100-800
 
 
 **Why this target:**
-I chose 100-800 characters because the documents are split based on heading and I believe each of the content under its heading fits this range.
+I chose 100-1000 characters because the documents are split based on heading and I believe each of the content under its heading fits this range.
 
 
 ---

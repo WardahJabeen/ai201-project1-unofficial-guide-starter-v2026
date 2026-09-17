@@ -22,10 +22,15 @@ to it, write down what you saw, and move on. That's a real observation about
 your pipeline, not giving up.
 """
 
+import re
 from dataclasses import dataclass
 
 import config
 from ingest import Document
+
+# Start of a `## ` section. Zero-width, so re.split keeps the heading line
+# attached to the body underneath it.
+_SECTION_START = re.compile(r"(?m)^(?=##\s)")
 
 
 @dataclass
@@ -80,24 +85,96 @@ def fallback_split(
     return chunks
 
 
+def _fit(section: str, max_chars: int, overlap: int) -> list[str]:
+    """
+    One section, cut only if it is over `max_chars`.
+
+    Cuts fall on paragraph breaks, and each piece after the first opens with
+    the last `overlap` characters of the one before it. A section that already
+    fits is returned untouched, so the overlap never applies to it.
+    """
+    if len(section) <= max_chars:
+        return [section]
+
+    pieces: list[str] = []
+    buffer = ""
+
+    for paragraph in re.split(r"\n\s*\n", section):
+        paragraph = paragraph.strip()
+
+        if not paragraph:
+            continue
+
+        if not buffer:
+            buffer = paragraph
+        elif len(buffer) + 2 + len(paragraph) <= max_chars:
+            buffer = f"{buffer}\n\n{paragraph}"
+        else:
+            pieces.append(buffer)
+            buffer = f"{buffer[-overlap:]}\n\n{paragraph}"
+
+    if buffer:
+        pieces.append(buffer)
+
+    bounded: list[str] = []
+
+    for piece in pieces:
+        while len(piece) > max_chars:
+            bounded.append(piece[:max_chars])
+            piece = piece[max_chars - overlap:]
+
+        bounded.append(piece)
+
+    return bounded
+
+
 def split_documents(documents: list[Document]) -> list[Chunk]:
     """
-    Split documents into chunks. ⚠️ REPLACE THE BODY OF THIS IN MILESTONE 3.
+    Split each document at its `## ` headings, one chunk per section.
 
-    Right now it just calls the fallback. That is the plain, generic behaviour
-    the brief is talking about.
+    The city_guides guides are all a `# ` title followed by `## ` sections —
+    "Getting there", "Eat and drink", "When to go" — and a section is the unit
+    a question actually asks about, so it is the unit this cuts on. Each
+    heading line stays attached to the body beneath it.
 
-    When you write your own strategy, set `produced_by` to
-    "chunker.py::split_documents" so your README's Sample Chunks section names
-    the right function. `app.py chunks` prints that string for you.
-
-    Things worth thinking about before you write any code:
-      - Are your documents short posts or long guides?
-      - Is the useful information in one sentence, or spread over a paragraph?
-      - Would splitting on paragraph breaks keep more thoughts intact than
-        splitting on a character count?
+    A section over CHUNK_SIZE is split at paragraph breaks with CHUNK_OVERLAP
+    characters carried across; a section that fits is left whole.
     """
-    return fallback_split(documents)
+    max_chars = config.CHUNK_SIZE
+    overlap = config.CHUNK_OVERLAP
+
+    if overlap >= max_chars:
+        raise ValueError("overlap has to be smaller than chunk_size")
+
+    chunks: list[Chunk] = []
+
+    for doc in documents:
+        index = 0
+
+        sections = [
+            s.strip()
+            for s in _SECTION_START.split(doc.text)
+            if s.strip()
+        ]
+
+        # Attach the opening title/summary to the first ## section.
+        if len(sections) > 1:
+            opening = sections.pop(0)
+            sections[0] = f"{opening}\n\n{sections[0]}"
+
+        for section in sections:
+            for piece in _fit(section, max_chars, overlap):
+                chunks.append(
+                    Chunk(
+                        text=piece,
+                        source=doc.source,
+                        index=index,
+                        produced_by="chunker.py::split_documents",
+                    )
+                )
+                index += 1
+
+    return chunks
 
 
 def describe(chunks: list[Chunk]) -> str:
