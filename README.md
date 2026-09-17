@@ -120,13 +120,26 @@ a minor injuries unit locally with limited hours.
      visible. Milestone 4. -->
 
 **Question:**
+"How much extra time should you add to a Brightwater walking estimate in winter?"
+ 
 
 **Answer:**
+You should add four minutes to any Brightwater walking estimate in winter because the path past the pond ices over and people take the long way round. (Source: guide_walking.md)
+
+Sources retrieved: guide_brightwater.md, guide_kestrelford.md, guide_regional_transport.md, guide_walking.md
+
 
 ```
 ```
 
 **My relevance cutoff:**
+I used a relevance cutoff of 0.6.
+
+For my five in-scope questions, the best distances were 0.369, 0.337, 0.288, 0.468, and 0.292.
+
+For my five out-of-scope questions, the best distances were 0.827, 0.903, 0.975, 0.846, and 0.813.
+
+The in-scope questions ranged from 0.288 to 0.468, while the out-of-scope questions ranged from 0.813 to 0.975, leaving a clear gap between the two groups. The cutoff of 0.6 falls within this gap.
 
 <!-- The number you set in config.py, and how you got there.
 
@@ -139,7 +152,16 @@ a minor injuries unit locally with limited hours.
 
 | Question | In corpus? | Best distance |
 |---|---|---|
-|  |  |  |
+| How much extra time should you add to a Brightwater walking estimate in winter? | Yes | 0.369 |
+| When does Brightwater become busiest and accommodation harder to find? | Yes | 0.337 |
+| How long does the train take from the regional hub to Brightwater? | Yes | 0.288 |
+| Where can you find cheaper seafood in Brightwater? | Yes | 0.468 |
+| Which market runs six days a week and is best on a weekday morning? | Yes | 0.292 |
+| What is the capital of Mongolia? | No | 0.827 |
+| How do I change the oil in a diesel engine? | No | 0.903 |
+| Who won the 1994 World Cup? | No | 0.975 |
+| What is the recommended dosage of ibuprofen for a headache? | No | 0.846 |
+| How do I write a for loop in Rust? | No | 0.813 |
 
 ## How I Used AI
 

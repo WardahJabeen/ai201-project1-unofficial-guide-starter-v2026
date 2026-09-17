@@ -1,0 +1,103 @@
+python app.py ask "How much extra time should you add to a Brightwater walking estimate in winter?"
+  (best distance 0.369, cutoff 0.6)
+
+You should add four minutes to any Brightwater walking estimate in winter because the path past the pond ices over and people take the long way round. (Source: guide_walking.md)
+
+Sources retrieved: guide_brightwater.md, guide_kestrelford.md, guide_regional_transport.md, guide_walking.md
+
+1 model calls this session, 857 tokens (818 in, 39 out)
+
+====================================================================================================================================
+
+python app.py ask "When does Brightwater become busiest and accommodation harder to find?"           
+  (best distance 0.337, cutoff 0.6)
+
+Brightwater becomes at its busiest and accommodation becomes hard to find and expensive from late September as term starts, according to *guide_seasons.md*.
+
+Sources retrieved: guide_brightwater.md, guide_givens_mill.md, guide_regional_transport.md, guide_seasons.md
+
+1 model calls this session, 656 tokens (625 in, 31 out)
+
+====================================================================================================================================
+
+python app.py ask "How long does the train take from the regional hub to Brightwater?  
+>> "
+  (best distance 0.288, cutoff 0.6)
+
+The train takes 50 minutes from the regional hub to Brightwater (*guide_brightwater.md* and *guide_regional_transport.md*).
+
+Sources retrieved: guide_brightwater.md, guide_marchwood.md, guide_regional_transport.md, guide_walking.md
+
+1 model calls this session, 859 tokens (826 in, 33 out)
+
+====================================================================================================================================
+
+ "Where can you find cheaper seafood in Brightwater?"               
+  (best distance 0.468, cutoff 0.6)
+
+Based on the provided documents, there is no mention of where to find cheaper seafood in Brightwater (the text mentions Brightwater's riverside strip and Corry Lane for comparable food, but does not specifically mention seafood there). Therefore, I do not have enough information to answer this question.
+
+Sources retrieved: guide_brightwater.md, guide_eating.md, guide_halden_bay.md, guide_pellew_sands.md
+
+====================================================================================================================================
+
+ python app.py ask "Which market runs six days a week and is best on a weekday morning?"   v2026> 
+  (best distance 0.292, cutoff 0.6)
+
+Marchwood's covered market runs six days a week and is at its best on a weekday morning (from guide_eating.md).
+
+Sources retrieved: guide_brightwater.md, guide_eating.md, guide_kestrelford.md, guide_regional_transport.md
+
+1 model calls this session, 620 tokens (592 in, 28 out)
+
+====================================================================================================================================
+
+******************************************************************************
+                                           OUT OF SCOPE
+******************************************************************************
+
+====================================================================================================================================
+"What is the capital of Mongolia?"                  
+  (best distance 0.827, cutoff 0.6)
+
+I don't have enough information about that.
+
+0 model calls this session
+
+====================================================================================================================================
+
+ "How do I change the oil in a diesel engine?"
+  (best distance 0.903, cutoff 0.6)
+
+I don't have enough information about that.
+
+0 model calls this session
+
+====================================================================================================================================
+
+ "Who won the 1994 World Cup?"                
+  (best distance 0.975, cutoff 0.6)
+
+I don't have enough information about that.
+
+0 model calls this session
+
+====================================================================================================================================
+
+"What is the recommended dosage of ibuprofen for a headache?"
+  (best distance 0.846, cutoff 0.6)
+
+I don't have enough information about that.
+
+0 model calls this session
+
+====================================================================================================================================
+
+"How do I write a for loop in Rust?"                         
+  (best distance 0.813, cutoff 0.6)
+
+I don't have enough information about that.
+
+0 model calls this session
+
+====================================================================================================================================
