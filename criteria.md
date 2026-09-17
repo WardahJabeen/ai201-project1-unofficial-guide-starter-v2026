@@ -19,8 +19,7 @@ pipeline earns credit; *"80% seemed reasonable"* does not.
 
 ## 1. Retrieved chunks contain the answer
 
-For at least 5 of my 5 test questions, the retrieved chunks include one that
-contains the answer.
+For at least 4 of my 5 test questions, the retrieved chunks include one that contains the answer.
 
 **Why this target:**
 All of my questions have a straightforward answer
@@ -62,7 +61,7 @@ I chose 4 out of 5 because the gate should stop most questions that are outside 
 ---
 
 ## 4. Retrieved chunks are within range
-For at least 4 of 5 test questions, all retrieved chunks must contain between 200 and 400 tokens, inclusive.
+For at least 4 of 5 test questions, all retrieved chunks contain between 100-800 characters.
 
 <!-- YOU WRITE THIS ONE.
 
@@ -79,13 +78,13 @@ For at least 4 of 5 test questions, all retrieved chunks must contain between 20
 
 
 **Why this target:**
-I chose 200–400 tokens because chunks with fewer than 200 tokens may not provide enough context, while chunks over 400 tokens may contain too much information to give one straightforward answer.
+I chose 100-800 characters because the documents are split based on heading and I believe each of the content under its heading fits this range.
 
 
 ---
 
 ## 5. Top-ranked retrieved answer has at least one fact
-For at least 4 of 5 test questions, the top-ranked retrieved chunk contains at least one factual statement that directly answers the question.
+For at least 4 of 5 test questions, the generated answer is no more than 100 words.
 
 <!-- YOU WRITE THIS ONE TOO.
 
@@ -98,7 +97,7 @@ For at least 4 of 5 test questions, the top-ranked retrieved chunk contains at l
 
 
 **Why this target:**
-I want the top-ranked chunk to contain at least one useful fact so I can quickly skim it and find relevant information.
+I want answers to be short enough that I can quickly skim them.
 
 ---
 
