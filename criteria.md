@@ -22,7 +22,7 @@ pipeline earns credit; *"80% seemed reasonable"* does not.
 For at least 4 of my 5 test questions, the retrieved chunks include one that contains the answer.
 
 **Why this target:**
-All of my questions have a straightforward answer
+My test questions are about specific facts in my city-guide documents, such as travel times, market days, and busy seasons, so I want the retrieved chunks to contain the information needed to answer them.
 <!-- e.g. "One of my questions is about a topic only two documents mention, so
      I expect that one to be hard." -->
 
@@ -33,7 +33,7 @@ All of my questions have a straightforward answer
 Every answer the system produces names at least one source document.
 
 **Why this target:**
-Every answer should name a source so I can see where the information came from.
+My corpus contains information from several different city-guide files, so naming the source helps me identify which guide the answer came from
 
 <!-- Why all five and not four? What about your setup makes that achievable —
      or what would have to go wrong for it not to be? 
@@ -54,7 +54,7 @@ in at least 4 of 5 tries.
      just keep five of them, or the "4 of 5" above has nothing to be 4 of. -->
 
 **Why this target:**
-I chose 4 out of 5 because the gate should stop most questions that are outside the documents, while allowing for one possible mistake.
+My corpus is limited to regional city guides, so questions about unrelated topics such as world history or programming should be rejected by the relevance gate.
 <!-- What did your distances look like when you set the cutoff in Milestone 4?
      Was there a clean gap, or did the two groups overlap? -->
 
@@ -97,8 +97,7 @@ For at least 4 of 5 test questions, the generated answer is no more than 100 wor
 
 
 **Why this target:**
-I want answers to be short enough that I can quickly skim them.
-
+Most questions about my city-guide corpus can be answered with a few relevant facts, so I want the generated answers to stay short and easy to skim.
 ---
 
 <!-- ─────────────────────────────────────────────────────────────────────────
