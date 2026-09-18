@@ -98,6 +98,7 @@ For at least 4 of 5 test questions, the generated answer is no more than 100 wor
 
 **Why this target:**
 Most questions about my city-guide corpus can be answered with a few relevant facts, so I want the generated answers to stay short and easy to skim.
+
 ---
 
 <!-- ─────────────────────────────────────────────────────────────────────────
