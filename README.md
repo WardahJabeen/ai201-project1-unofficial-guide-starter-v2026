@@ -267,8 +267,10 @@ I asked ChatGPT for help explaining the “why this target” section for my chu
 ## The Improvement
 
 **What I changed:**
+Fixed my question 4 from Bridgewater to Halden Bay
 
 **Why I picked it:**
+All other criterias passed and this question was misworded on my end which was causing the answer to fail. Because the answer didn't exist, model wasn't able to give a source.
 
 <!-- Connect it to a specific diagnosis above in one sentence. If you can't,
      you picked a fix because it sounded impressive. -->
@@ -278,16 +280,18 @@ I asked ChatGPT for help explaining the “why this target” section for my chu
 <!-- Same format, same five criteria, three runs each.
      `python run_eval.py --label after` -->
 
-| Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
-|---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+
+| Criterion                                                                | Target | Run 1 | Run 2 | Run 3 | Verdict |
+| ------------------------------------------------------------------------ | ------ | ----: | ----: | ----: | ------- |
+| 1. Retrieved chunks contain the answer                                   | 4 of 5 |   5/5 |   5/5 |   5/5 | MET     |
+| 2. Every answer names a source                                           | 5 of 5 |   5/5 |   5/5 |   5/5 | MET  |
+| 3. Relevance gate stops out-of-corpus questions                          | 4 of 5 |   5/5 |   5/5 |   5/5 | MET     |
+| 4. Retrieved chunks are within range (100–1000 characters)               | 4 of 5 |   5/5 |   5/5 |   5/5 | MET     |
+| 5. For at least 4 of 5 test questions, the generated answer is no more than 100 words. | 4 of 5 |   5/5 |   5/5 |   5/5 | MET     |
+
 
 **Did it help?**
-
+Yes, question 4 had the correct answer as well as the source.
 <!-- Say plainly whether it did, and how you know. If it made things worse,
      say that — a change that backfired, honestly reported, earns full credit
      and is more interesting than one that worked. What matters is that you can
@@ -296,7 +300,6 @@ I asked ChatGPT for help explaining the “why this target” section for my chu
      Milestone 4. -->
 
 ## What's Still Broken
-
 <!-- For each criterion still missed after your fix: what you'd do about it,
      and why you stopped where you did.
 
