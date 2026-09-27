@@ -300,6 +300,7 @@ Yes, question 4 had the correct answer as well as the source.
      Milestone 4. -->
 
 ## What's Still Broken
+All of my criterias passed. Chunks could be tighter for future reference to save the tokens. I didn't implement this in this run because I feared it would break all of my answers and affect multiple criteria making it confusing and long time to fix.
 <!-- For each criterion still missed after your fix: what you'd do about it,
      and why you stopped where you did.
 
@@ -309,7 +310,7 @@ Yes, question 4 had the correct answer as well as the source.
      Milestone 5. -->
 
 ## What I'd Do Differently
-
+I would rewrite my criteria 4. Currently it has retrieved chunk ranged of 100-1000 and it works. And the answers are concise to the point. However I want to test if narrowing the chunking to paragraph by paragraph instead of subtitle by subtitle would still work or not. Even though the answers are already to the point, I would like reduce the tokens used.
 <!-- Knowing what you know now — which of your five criteria would you write
      differently, and why?
 
