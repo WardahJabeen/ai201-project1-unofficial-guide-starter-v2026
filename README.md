@@ -260,14 +260,14 @@ I asked ChatGPT for help explaining the “why this target” section for my chu
 
      Milestone 3. -->
 
-     Question 4 failed. Accidentally used Bridge Water in my expected answer instead of Halden Bay. With the correct expected answer, the criterias do pass for this question.
+     Question 4 failed. Accidentally used Bridge Water in my expected answer instead of Halden Bay. The lack of answer also caused the source to be empty. With the correct expected answer, the criterias do pass for this question. Technically generation failed however due to my incorrect question where answer didn't exist, I wouldn't label it loading, chunking, embedding, retrieval, or generation.
 
      A criteria I would tighten would be the criteria 4. "For at least 4 of 5 test questions, all retrieved chunks contain between 100-1000 characters." I would tigten it to 100 - 600 and narrow down the paragraphs retrieved for chunks.
 
 ## The Improvement
 
 **What I changed:**
-Fixed my question 4 from Bridgewater to Halden Bay
+Fixed my question 4 from Bridgewater to Halden Bay. This should make the criteria 1 and 2 5/5, causing the second one to pass as well
 
 **Why I picked it:**
 All other criterias passed and this question was misworded on my end which was causing the answer to fail. Because the answer didn't exist, model wasn't able to give a source.
