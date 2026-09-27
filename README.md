@@ -262,6 +262,8 @@ I asked ChatGPT for help explaining the “why this target” section for my chu
 
      Question 4 failed. Accidentally used Bridge Water in my expected answer instead of Halden Bay. With the correct expected answer, the criterias do pass for this question.
 
+     A criteria I would tighten would be the criteria 4. "For at least 4 of 5 test questions, all retrieved chunks contain between 100-1000 characters." I would tigten it to 100 - 600 and narrow down the paragraphs retrieved for chunks.
+
 ## The Improvement
 
 **What I changed:**
