@@ -41,6 +41,10 @@ google-genai>=1.0,<2.0
 # it's there if you want it — the implementation is yours to write.
 rank-bm25>=0.2.2,<0.3
 
+# Fuzzy string matching, used by scorer.py::judge to decide whether an answer
+# contains what `expects` asked for without demanding exact wording.
+rapidfuzz>=3.9,<4
+
 # Serves the pipeline over HTTP, so the same code can run as a web service
 # instead of a command that exits. That's serve.py.
 flask>=3.0,<3.2

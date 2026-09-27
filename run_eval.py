@@ -40,6 +40,12 @@ from pathlib import Path
 import config
 import questions as qs
 
+# Criterion 4's range, in characters. Retrieval is deterministic, so the
+# chunks a question pulls back are the same on all three runs — measuring
+# their lengths once per question is the whole measurement.
+CHUNK_MIN_CHARS = 100
+CHUNK_MAX_CHARS = 1000
+
 
 def load_scorer():
     """Use scorer.py if the student has built it. Otherwise run unscored."""
@@ -108,12 +114,14 @@ def main():
         print(f"\n{question}")
 
         run_results = []
+        chunks = []
         for run in range(1, args.runs + 1):
             answer, results, decision = run_once(
                 question, top_k, threshold, corpus, args.variant
             )
             passed = judge(question, expects, answer, results) if judge else None
             run_results.append(passed)
+            chunks = measure_chunks(results)
 
             mark = {True: "pass", False: "fail", None: "—"}[passed]
             print(f"  run {run}: {mark}  (best distance {decision.best_distance:.3f})")
@@ -126,10 +134,27 @@ def main():
                     "sources": sorted({r.source for r in results}),
                     "best_distance": decision.best_distance,
                     "gate_passed": decision.passed,
+                    "chunks": chunks,
                 }
             )
 
-        rows.append({"question": question, "expects": expects, "runs": run_results})
+        in_range = all(c["in_range"] for c in chunks) if chunks else False
+        sizes = [c["chars"] for c in chunks]
+        print(
+            f"  chunks: {sum(c['in_range'] for c in chunks)} of {len(chunks)} "
+            f"within {CHUNK_MIN_CHARS}–{CHUNK_MAX_CHARS} chars"
+            + (f" (shortest {min(sizes)}, longest {max(sizes)})" if sizes else "")
+        )
+
+        rows.append(
+            {
+                "question": question,
+                "expects": expects,
+                "runs": run_results,
+                "chunks": chunks,
+                "chunks_in_range": in_range,
+            }
+        )
 
     gate_rows = check_out_of_scope(top_k, threshold, corpus, args.variant)
 
@@ -137,6 +162,23 @@ def main():
         rows, transcript, gate_rows, args, corpus, top_k, threshold,
         scored=judge is not None,
     )
+
+
+def measure_chunks(results):
+    """How long each retrieved chunk was, and whether it fits criterion 4.
+
+    Criterion 4 is about chunk size, and the answer text alone can't show it —
+    the length lives on the chunks retrieval handed over, so it gets counted
+    here and written into the run log next to everything else.
+    """
+    return [
+        {
+            "label": r.label,
+            "chars": len(r.text),
+            "in_range": CHUNK_MIN_CHARS <= len(r.text) <= CHUNK_MAX_CHARS,
+        }
+        for r in results
+    ]
 
 
 def check_out_of_scope(top_k, threshold, corpus, variant):
@@ -219,6 +261,38 @@ def write_report(rows, transcript, gate_rows, args, corpus, top_k, threshold, sc
             "> the scorer first and re-run.",
         ]
 
+    sized = [row for row in rows if row["chunks"]]
+    if sized:
+        ok = sum(row["chunks_in_range"] for row in sized)
+        lines += [
+            "",
+            "---",
+            "",
+            f"## Retrieved chunk sizes ({CHUNK_MIN_CHARS}–{CHUNK_MAX_CHARS} characters)",
+            "",
+            f"Produced by `run_eval.py::measure_chunks`. All retrieved chunks were "
+            f"within range for {ok} of {len(sized)} questions.",
+            "",
+            "Retrieval is deterministic, so the same question pulls back the same",
+            "chunks on every run — these lengths are measured once per question.",
+            "",
+            "| Question | Chunks | Shortest | Longest | In range | Out of range |",
+            "|---|---|---|---|---|---|",
+        ]
+        for row in sized:
+            sizes = [c["chars"] for c in row["chunks"]]
+            outside = [
+                f"{c['label']} ({c['chars']})"
+                for c in row["chunks"]
+                if not c["in_range"]
+            ]
+            question = row["question"].replace("|", "\\|")
+            lines.append(
+                f"| {question} | {len(sizes)} | {min(sizes)} | {max(sizes)} | "
+                f"{'yes' if row['chunks_in_range'] else '**no**'} | "
+                f"{', '.join(outside) or '—'} |"
+            )
+
     if gate_rows:
         refused = sum(r["refused"] for r in gate_rows)
         lines += [
@@ -248,12 +322,18 @@ def write_report(rows, transcript, gate_rows, args, corpus, top_k, threshold, sc
               "output as text, not a description of it.", ""]
 
     for entry in transcript:
+        sizes = ", ".join(
+            f"{c['label']} {c['chars']}{'' if c['in_range'] else ' ⚠'}"
+            for c in entry["chunks"]
+        )
         lines += [
             f"### {entry['question']} — run {entry['run']}",
             "",
             f"- Best distance: {entry['best_distance']:.4f} "
             f"({'passed' if entry['gate_passed'] else 'refused by'} the gate)",
             f"- Sources retrieved: {', '.join(entry['sources']) or 'none'}",
+            f"- Chunk sizes (chars, ⚠ outside {CHUNK_MIN_CHARS}–{CHUNK_MAX_CHARS}): "
+            f"{sizes or 'none'}",
             "",
             "```",
             entry["answer"],
