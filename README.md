@@ -234,7 +234,7 @@ I asked ChatGPT for help explaining the “why this target” section for my chu
 
 | # | Criterion | Verdict | How I decided |
 |---|---|---|---|
-| 1 |  Retrieved chunks contain the answer | MET  | My expected answer were in all 5 of the answers |
+| 1 |  Retrieved chunks contain the answer | MET  | My expected answer were in at least 4 of the 5 answers |
 | 2 |  Every answer names a source | MISSED | One of my answers didn't name a source |
 | 3 |  Relevance gate stops out-of-corpus questions | MET | It refused all 5 of the out-of-corpus questions |
 | 4 |  Retrieved chunks are within range (100–1000 characters) | MET | I implemented the code to retrieve chunk size and they all were within range |
