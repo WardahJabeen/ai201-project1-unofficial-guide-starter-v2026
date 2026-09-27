@@ -260,6 +260,8 @@ I asked ChatGPT for help explaining the “why this target” section for my chu
 
      Milestone 3. -->
 
+     Question 4 failed. Accidentally used Bridge Water in my expected answer instead of Halden Bay. With the correct expected answer, the criterias do pass for this question.
+
 ## The Improvement
 
 **What I changed:**
